@@ -11,6 +11,12 @@ Store.reopen({
       let recordRef = pushed.ref();
       recordRef.__update_meta(data.data.meta);
       recordRef.__update_responseMeta(data.meta);
+
+      let relationships = data.data.relationships || {};
+      Object.keys(relationships).forEach((name) => {
+        let links = relationships[name].links;
+        pushed.hasMany(name).__update_links(links);
+      });
     }
 
     if (Array.isArray(pushed)) {

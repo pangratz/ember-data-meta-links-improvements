@@ -1,7 +1,6 @@
 import DS from "ember-data";
 
-const { Model, hasMany } = DS;
+const { Model } = DS;
 
 export default Model.extend({
-  chapters: hasMany()
 });

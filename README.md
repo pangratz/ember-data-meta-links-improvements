@@ -23,7 +23,7 @@ Currently the following improvements are implemented:
   - [x] get response level meta data for single resource via `record.ref().meta("response")`
 - [ ] links for relationship references
   - [ ] belongs to
-  - [ ] has many
+  - [x] [has many](#has-many-links) ([tests](tests/integration/has-many-links-test.js))
 - [ ] meta and links for finders
   - [ ] queryRecord (meta works, links still missing)
   - [ ] query
@@ -69,6 +69,40 @@ this.store.findRecord('book', 1).then(function(book) {
   // get response level meta data
   let topLevelMeta = bookRef.meta("response");
   topLevelMeta === { topLevel: true };
+});
+```
+
+### Has-many links
+
+```js
+// GET /books/1
+// {
+//   data: {
+//     type: "book",
+//     id: 1,
+//     relationships: {
+//       chapters: {
+//         links: {
+//           related: "related-link",
+//           self: {
+//             href: "self-link",
+//             meta: {
+//               selfLink: true
+//             }
+//           }
+//         }
+//       }
+//     }
+//   }
+// }
+this.store.findRecord('book', 1).then(function(book) {
+  let chaptersRef = book.hasMany("chapters");
+
+  let related = chaptersRef.links("related");
+  related.href() === "related-link";
+
+  let next = chaptersRef.links("self");
+  next.meta() === { selfLink: true };
 });
 ```
 

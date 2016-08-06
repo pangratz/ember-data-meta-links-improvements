@@ -18,14 +18,14 @@ stability and decent performance can not be guaranteed. :warning:
 
 Currently the following improvements are implemented:
 
-- [ ] single record meta data
-  - [ ] get record level meta data via `record.ref().meta()`
-  - [ ] get response level meta data for single resource via `record.ref().meta("response")`
+- [x] [single record meta data](#single-record-meta-data) ([tests](tests/integration/record-meta-test.js))
+  - [x] get record level meta data via `record.ref().meta()`
+  - [x] get response level meta data for single resource via `record.ref().meta("response")`
 - [ ] links for relationship references
   - [ ] belongs to
   - [ ] has many
 - [ ] meta and links for finders
-  - [ ] queryRecord
+  - [ ] queryRecord (meta works, links still missing)
   - [ ] query
   - [ ] findAll
 - [ ] get reference for has-many via `hasManyRelationship.ref()`
@@ -41,6 +41,36 @@ Currently the following improvements are implemented:
 `ember install ember-data-meta-links-improvements`
 
 ## Code samples
+
+### Single record meta data
+
+```js
+// GET /books/1
+// {
+//   data: {
+//     type: "book",
+//     id: 1,
+//     meta: {
+//       recordLevel: true
+//     }
+//   },
+//   meta: {
+//     topLevel: true
+//   }
+// }
+this.store.findRecord('book', 1).then(function(book) {
+  // get reference for record
+  let bookRef = book.ref();
+
+  // get record level meta data
+  let meta = bookRef.meta();
+  meta === { recordLevel: true };
+
+  // get response level meta data
+  let topLevelMeta = bookRef.meta("response");
+  topLevelMeta === { topLevel: true };
+});
+```
 
 # Development
 

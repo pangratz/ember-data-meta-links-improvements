@@ -26,7 +26,7 @@ Currently the following improvements are implemented:
   - [x] [has many](#has-many-links) ([tests](tests/integration/has-many-links-test.js))
 - [ ] meta and links for finders
   - [ ] queryRecord (meta works, links still missing)
-  - [ ] query
+  - [x] [query](#storequery) ([tests](tests/integration/query-test.js))
   - [ ] findAll
 - [ ] get reference for has-many via `hasManyRelationship.ref()`
 - [ ] get parent reference for relationship reference
@@ -103,6 +103,44 @@ this.store.findRecord('book', 1).then(function(book) {
 
   let next = chaptersRef.links("self");
   next.meta() === { selfLink: true };
+});
+```
+
+### `store.query`
+
+```js
+// GET /books?page=2
+// {
+//   data: [{
+//     type: "book",
+//     id: 1
+//   }],
+//   links: {
+//     next: {
+//       href: "/books?page=3",
+//       meta: {
+//         isLast: true
+//       }
+//     },
+//     prev: {
+//       href: "/books?page=1"
+//     }
+//   },
+//   meta: {
+//     total: 123
+//   }
+// }
+this.store.query('book', { page: 2 }).then(function(books) {
+  let booksRef = books.ref();
+
+  let prev = booksRef.links("prev");
+  prev.href() === "/books?page=1";
+
+  let next = booksRef.links("next");
+  next.meta() === { isLast: true };
+
+  let meta = booksRef.meta();
+  meta === { total: 123 };
 });
 ```
 

@@ -14,7 +14,9 @@ covers all the use cases of the RFC.
 
 :warning: The current implementation heavily relies on patches of Ember Data
 internals, so it is definitely not encouraged to use in production, as
-stability and decent performance can not be guaranteed. :warning:
+stability and decent performance can not be guaranteed. Also, the proposed API
+of the RFC and this addon might diverge, though the goal is to keep them in
+alignment within a narrow time frame :warning:
 
 Currently the following improvements are implemented:
 

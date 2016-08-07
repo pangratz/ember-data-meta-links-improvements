@@ -3,8 +3,6 @@
 [![Build Status](https://travis-ci.org/pangratz/ember-data-meta-links-improvements.svg?branch=master)](https://travis-ci.org/pangratz/ember-data-meta-links-improvements)
 [![Ember Observer Score](https://emberobserver.com/badges/ember-data-meta-links-improvements.svg)](https://emberobserver.com/addons/ember-data-meta-links-improvements)
 
-Proof of Concept for [RFC#160](https://github.com/emberjs/rfcs/pull/160).
-
 This addon is a Proof of Concept for
 [RFC#160](https://github.com/emberjs/rfcs/pull/160) which aims to improve the
 meta and links situation within Ember Data.

@@ -85,8 +85,8 @@ test("links().load()", async function(assert) {
       relationships: {
         chapters: {
           links: {
-            self: "self-link",
-            related: "related-link"
+            self: "/self-link",
+            related: "/related-link"
           }
         }
       }

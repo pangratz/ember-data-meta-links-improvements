@@ -77,8 +77,8 @@ test("links().load()", async function(assert) {
         type: 'book'
       }],
       links: {
-        next: "next-link",
-        prev: "prev-link"
+        next: "/next-link",
+        prev: "/prev-link"
       }
     })];
   });

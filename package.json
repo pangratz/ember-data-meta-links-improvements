@@ -1,6 +1,6 @@
 {
   "name": "ember-data-meta-links-improvements",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "POC for https://github.com/emberjs/rfcs/pull/160",
   "directories": {
     "doc": "doc",

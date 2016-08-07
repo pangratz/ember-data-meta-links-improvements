@@ -69,6 +69,44 @@ test("links()", async function(assert) {
   assert.deepEqual(nextLink.meta(), { next: true });
 });
 
+test("links().load()", async function(assert) {
+  this.server.get('/books', function() {
+    return [200, {}, JSON.stringify({
+      data: [{
+        id: 1,
+        type: 'book'
+      }],
+      links: {
+        next: "next-link",
+        prev: "prev-link"
+      }
+    })];
+  });
+
+  let books = await this.query('book', {});
+
+  this.server.get('/next-link', function() {
+    return [200, {}, JSON.stringify({
+      data: [{
+        type: "book",
+        id: 2
+      }],
+      meta: {
+        isNext: true
+      }
+    })];
+  });
+
+  let nextLink = books.ref().links("next");
+  let next = await nextLink.load();
+
+  assert.equal(next.get('length'), 1);
+  assert.deepEqual(next.ref().meta(), { isNext: true });
+
+  let book2Ref = this.store.getReference("book", 2);
+  assert.deepEqual(book2Ref.meta("response"), { isNext: true });
+});
+
 test("meta()", async function(assert) {
   this.server.get('/books', function() {
     return [200, {}, JSON.stringify({

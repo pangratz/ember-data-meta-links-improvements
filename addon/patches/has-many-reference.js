@@ -19,8 +19,12 @@ HasManyReference.prototype.__update_links = function(links) {
 
     let { store } = this;
 
-    let link = new LinkReference({ store, name, href, meta  });
+    let link = new LinkReference({ parentRef: this, store, name, href, meta  });
 
     this._links[name] = link;
   });
 };
+
+HasManyReference.prototype.modelName = function() {
+  return this.type;
+}

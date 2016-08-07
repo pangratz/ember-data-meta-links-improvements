@@ -77,6 +77,38 @@ test("links()", function(assert) {
   assert.equal(links.length, 2);
 });
 
+test("links().load()", async function(assert) {
+  let book = this.push({
+    data: {
+      id: 1,
+      type: 'book',
+      relationships: {
+        chapters: {
+          links: {
+            self: "self-link",
+            related: "related-link"
+          }
+        }
+      }
+    }
+  });
+
+  let chaptersRef = book.hasMany("chapters");
+
+  this.server.get('/self-link', function() {
+    return [200, {}, JSON.stringify({
+      data: [],
+      meta: {
+        isSelf: true
+      }
+    })];
+  });
+
+  let next = await chaptersRef.links("self").load();
+
+  assert.deepEqual(next.ref().meta(), { isSelf: true });
+});
+
 test("links(name) with link being an object", function(assert) {
   let book = this.push({
     data: {

@@ -1,4 +1,5 @@
 import './patches/store';
+import './patches/rest-adapter';
 import './patches/json-serializer';
 import './patches/json-api-serializer';
 import './patches/rest-serializer';

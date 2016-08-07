@@ -2,7 +2,8 @@ import LinkReference from 'ember-data-meta-links-improvements/references/link';
 
 export default class RecordArrayReference {
 
-  constructor({ recordArray }) {
+  constructor({ store, recordArray }) {
+    this.store = store;
     this._recordArray = recordArray;
   }
 
@@ -22,6 +23,10 @@ export default class RecordArrayReference {
     return Object.keys(this._links).map((name) => this[name], this);
   }
 
+  modelName() {
+    return this._recordArray.type.modelName;
+  }
+
   __update_meta(meta) {
     this._meta = meta;
   }
@@ -35,7 +40,7 @@ export default class RecordArrayReference {
       href = href || links[name];
 
       let { store } = this;
-      let link = new LinkReference({ store, name, href, meta });
+      let link = new LinkReference({ parentRef: this, store, name, href, meta  });
 
       this._links[name] = link;
     });

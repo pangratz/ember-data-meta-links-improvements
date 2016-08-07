@@ -35,6 +35,7 @@ Currently the following improvements are implemented:
 - [ ] add hook when new data is received
   - [ ] `Model#didReceiveData`
 - [ ] further miscellaneous changes
+  - [x] get parent reference of link via `linkRef.parentRef()`
 
 ## Installation
 
@@ -103,6 +104,17 @@ this.store.findRecord('book', 1).then(function(book) {
 
   let next = chaptersRef.links("self");
   next.meta() === { selfLink: true };
+
+  // GET /self-link
+  // {
+  //   data: [],
+  //   meta: {
+  //     isSelf: true
+  //   }
+  // }
+  next.load().then(function(nextArray) {
+    nextArray.ref().meta() === { isSelf: true }
+  });
 });
 ```
 
@@ -130,7 +142,7 @@ this.store.findRecord('book', 1).then(function(book) {
 //     total: 123
 //   }
 // }
-this.store.query('book', { page: 2 }).then(function(books) {
+let books = await this.store.query('book', { page: 2 }).then(function(books) {
   let booksRef = books.ref();
 
   let prev = booksRef.links("prev");
@@ -142,6 +154,25 @@ this.store.query('book', { page: 2 }).then(function(books) {
   let meta = booksRef.meta();
   meta === { total: 123 };
 });
+
+// GET /books?page=3
+// {
+//   data: [{
+//     type: "book",
+//     id: 1
+//   }],
+//   links: {
+//     prev: {
+//       href: "/books?page=2"
+//     }
+//   },
+//   meta: {
+//     isLastPage: true
+//   }
+// }
+let next = await books.ref().links("next").load();
+
+next.ref().meta() === { isLastPage: true }
 ```
 
 ### `store.findAll`

@@ -27,7 +27,7 @@ Currently the following improvements are implemented:
 - [ ] meta and links for finders
   - [ ] queryRecord (meta works, links still missing)
   - [x] [query](#storequery) ([tests](tests/integration/query-test.js))
-  - [ ] findAll
+  - [x] [findAll](#storefindall) ([tests](tests/integration/findAll-test.js))
 - [ ] get reference for has-many via `hasManyRelationship.ref()`
 - [ ] get parent reference for relationship reference
   - [ ] belongs to
@@ -142,6 +142,47 @@ this.store.query('book', { page: 2 }).then(function(books) {
   let meta = booksRef.meta();
   meta === { total: 123 };
 });
+```
+
+### `store.findAll`
+
+```js
+// GET /books
+// {
+//   data: [{
+//     type: "book",
+//     id: 1
+//   }],
+//   links: {
+//     self: "self-link"
+//   },
+//   meta: {
+//     total: 123
+//   }
+// }
+let books = await this.store.findAll('book');
+
+let booksRef = books.ref();
+
+let self = booksRef.links("self");
+self.href() === "self-link";
+
+let meta = booksRef.meta();
+meta === { total: 123 };
+
+// GET /books
+// {
+//   data: [{
+//     type: "book",
+//     id: 1
+//   }],
+//   meta: {
+//     total: 456
+//   }
+// }
+await this.store.findAll('book', { reload: true });
+
+booksRef.meta() === { total: 456 };
 ```
 
 # Development

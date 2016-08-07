@@ -33,6 +33,12 @@ Store.reopen({
       });
     }
 
+    if (data.__is_findAll) {
+      let recordArray = this.peekAll(data.__primaryModelName);
+      recordArray.ref().__update_meta(data.meta);
+      recordArray.ref().__update_links(data.links);
+    }
+
     return pushed;
   },
 

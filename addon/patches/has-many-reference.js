@@ -28,3 +28,7 @@ HasManyReference.prototype.__update_links = function(links) {
 HasManyReference.prototype.modelName = function() {
   return this.type;
 }
+
+HasManyReference.prototype.parentRef = function() {
+  return this.internalModel.recordReference;
+}

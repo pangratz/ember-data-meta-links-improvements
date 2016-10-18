@@ -29,9 +29,9 @@ Currently the following improvements are implemented:
   - [x] [query](#storequery) ([tests](tests/integration/query-test.js))
   - [x] [findAll](#storefindall) ([tests](tests/integration/findAll-test.js))
 - [ ] get reference for has-many via `hasManyRelationship.ref()`
-- [ ] get parent reference for relationship reference
+- [x] get parent reference for relationship reference
   - [x] belongs to ([tests](tests/integration/belongs-to-reference-test.js))
-  - [ ] has many
+  - [x] has many ([tests](tests/integration/has-many-reference-test.js))
 - [ ] add hook when new data is received
   - [ ] `Model#didReceiveData`
 - [ ] further miscellaneous changes

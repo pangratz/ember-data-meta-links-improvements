@@ -21,6 +21,7 @@ Currently the following improvements are implemented:
 - [x] [single record meta data](#single-record-meta-data) ([tests](tests/integration/record-meta-test.js))
   - [x] get record level meta data via `record.ref().meta()`
   - [x] get response level meta data for single resource via `record.ref().meta("response")`
+- [ ] single record links
 - [ ] links for relationship references
   - [ ] belongs to
   - [x] [has many](#has-many-links) ([tests](tests/integration/has-many-links-test.js))

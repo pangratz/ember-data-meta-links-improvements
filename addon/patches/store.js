@@ -43,6 +43,16 @@ Store.reopen({
   },
 
   didSaveRecord(internalModel, { data }) {
+    if (data === undefined) {
+      data = {
+        meta: undefined,
+        _top_level_meta: undefined
+      }
+    } else if (!('meta' in data)) {
+      data.meta = undefined;
+      data._top_level_meta = undefined;
+    }
+    
     internalModel.recordReference.__update_meta(data.meta);
     internalModel.recordReference.__update_responseMeta(data._top_level_meta);
     return this._super(...arguments);

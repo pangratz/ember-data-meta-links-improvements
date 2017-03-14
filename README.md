@@ -232,6 +232,15 @@ booksRef.meta() === { total: 456 };
 
 ## Running Tests
 
+### Running Tests In Container
+
+* `docker build .`
+* `sudo docker run -it --rm -v <full path to>/ember-data-meta-links-improvements:/src <new image id>`
+* `npm install`
+* `bower install`
+
+### Running Tests Locally
+
 * `npm test` (Runs `ember try:testall` to test your addon against multiple Ember versions)
 * `ember test`
 * `ember test --server`

@@ -235,7 +235,10 @@ booksRef.meta() === { total: 456 };
 ### Running Tests In Container
 
 * `docker build .`
-* `sudo docker run -it --rm -v <full path to>/ember-data-meta-links-improvements:/src <new image id>`
+* `sudo docker run -it --rm \
+    -v <full path to>/ember-data-meta-links-improvements/addon:/src/addon \
+    -v <full path to>/ember-data-meta-links-improvements/tests:/src/tests \
+    <new image id>`
 * `npm install`
 * `bower install`
 
